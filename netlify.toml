@@ -1,0 +1,90 @@
+# Netlify Configuration for Hugo CMS Starter Kit
+
+[build]
+  # Build command
+  command = "hugo --gc --minify"
+  
+  # Directory to publish (relative to root of your repo)
+  publish = "public"
+  
+  # Default build environment variables
+  [build.environment]
+    HUGO_VERSION = "0.145.0"
+    HUGO_ENABLEGITINFO = "true"
+    HUGO_ENV = "production"
+
+# Production context: all deploys from the main branch
+[context.production]
+  command = "hugo --gc --minify --enableGitInfo"
+
+# Deploy Preview context: all deploys generated from
+# a pull/merge request will inherit these settings
+[context.deploy-preview]
+  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+
+# Branch Deploy context: all deploys that are not from
+# a pull/merge request or from the main branch will inherit these settings
+[context.branch-deploy]
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+
+# Headers for security and performance
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover
+  for = "/*"
+  
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Performance headers
+    Cache-Control = "public, max-age=31536000"
+
+# Cache static assets for longer
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache admin assets
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# CMS-specific configuration
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    # Allow CMS to load in iframe for preview
+    X-Frame-Options = "SAMEORIGIN"
+
+# Redirects for SPA-like behavior (optional)
+# [[redirects]]
+#   from = "/admin/*"
+#   to = "/admin/index.html"
+#   status = 200
+
+# Enable Netlify Identity for CMS authentication
+# This section is automatically handled when you enable Identity in Netlify dashboard
+
+# Function configuration (if using serverless functions)
+[functions]
+  # Directory where your functions are located
+  directory = "functions/"
+
+# Form handling (if using Netlify Forms)
+# [template.environment]
+#   FORM_HANDLER = "netlify"

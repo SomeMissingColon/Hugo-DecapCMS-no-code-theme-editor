@@ -1,0 +1,336 @@
+# Hugo CMS Starter Kit - Decap CMS Configuration
+# This file configures the content management interface
+
+backend:
+  name: git-gateway
+  branch: main # Change to your default branch
+  
+# For local development, uncomment the following:
+# local_backend: true
+
+# Media and asset management
+media_folder: static/images/uploads
+public_folder: /images/uploads
+
+# Site configuration
+site_url: https://your-site.com # Change to your site URL
+display_url: https://your-site.com
+logo_url: /images/logo.svg # Optional: path to your logo
+
+# Content collections
+collections:
+  # Site Theme and Branding
+  - name: "theme"
+    label: "Site Theme & Branding"
+    description: "Customize your site's visual appearance and branding"
+    files:
+      - name: "theme"
+        label: "Theme Settings"
+        file: "data/theme.yml"
+        fields:
+          # Color Scheme
+          - label: "🎨 Color Scheme"
+            name: "colors"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "Background Color"
+                name: "bg"
+                widget: "color"
+                default: "#ffffff"
+                hint: "Main background color of the site"
+              
+              - label: "Text Color"
+                name: "text"
+                widget: "color"
+                default: "#333333"
+                hint: "Primary text color"
+              
+              - label: "Primary Brand Color"
+                name: "primary"
+                widget: "color"
+                default: "#2563eb"
+                hint: "Main brand color for headings and buttons"
+              
+              - label: "Accent Color"
+                name: "accent"
+                widget: "color"
+                default: "#10b981"
+                hint: "Secondary color for highlights and CTAs"
+          
+          # Typography
+          - label: "📝 Typography"
+            name: "typography"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "Font Family"
+                name: "font"
+                widget: "googleFontSelect"
+                default: "Inter"
+                hint: "Choose from Google Fonts library"
+          
+          # Branding
+          - label: "🏢 Branding"
+            name: "branding"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "Site Title"
+                name: "site_title"
+                widget: "string"
+                default: "Your Site Name"
+                hint: "Displayed in header and footer"
+              
+              - label: "Logo"
+                name: "logo"
+                widget: "image"
+                required: false
+                hint: "Upload your company logo (SVG or PNG recommended)"
+          
+          # Homepage Hero Section
+          - label: "🚀 Hero Section"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Enable Hero Section"
+                name: "enabled"
+                widget: "boolean"
+                default: true
+              
+              - label: "Hero Title"
+                name: "title"
+                widget: "string"
+                default: "Welcome to Your Website"
+              
+              - label: "Hero Subtitle"
+                name: "subtitle"
+                widget: "text"
+                default: "Customize this content through the CMS interface"
+              
+              - label: "Call-to-Action Button"
+                name: "button_text"
+                widget: "string"
+                required: false
+                default: "Get Started"
+              
+              - label: "Button Link"
+                name: "button_url"
+                widget: "string"
+                required: false
+                default: "/about/"
+              
+              - label: "Background Image"
+                name: "background_image"
+                widget: "image"
+                required: false
+          
+          # Features Section
+          - label: "✨ Features Section"
+            name: "features"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Enable Features Section"
+                name: "enabled"
+                widget: "boolean"
+                default: true
+              
+              - label: "Section Title"
+                name: "title"
+                widget: "string"
+                default: "Key Features"
+              
+              - label: "Feature Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - label: "Feature Title"
+                    name: "title"
+                    widget: "string"
+                  
+                  - label: "Description"
+                    name: "description"
+                    widget: "text"
+                  
+                  - label: "Icon"
+                    name: "icon"
+                    widget: "string"
+                    hint: "Emoji or icon character"
+                    default: "⭐"
+          
+          # Navigation Menu
+          - label: "🧭 Navigation Menu"
+            name: "nav"
+            widget: "list"
+            hint: "Configure your site navigation (also managed via Hugo menus)"
+            fields:
+              - label: "Menu Item Name"
+                name: "name"
+                widget: "string"
+              
+              - label: "Link URL"
+                name: "url"
+                widget: "string"
+                hint: "Use / for home, /about/, etc."
+
+  # Pages
+  - name: "pages"
+    label: "📄 Pages"
+    description: "Manage your site's main pages"
+    files:
+      - file: "content/_index.md"
+        label: "🏠 Home Page"
+        name: "home"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          
+          - label: "Description"
+            name: "description"
+            widget: "text"
+            hint: "SEO description for the homepage"
+          
+          - label: "Content"
+            name: "body"
+            widget: "markdown"
+            required: false
+            hint: "Additional content below the hero section"
+      
+      - file: "content/about/_index.md"
+        label: "ℹ️ About Page"
+        name: "about"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          
+          - label: "Description"
+            name: "description"
+            widget: "text"
+          
+          - label: "Content"
+            name: "body"
+            widget: "markdown"
+      
+      - file: "content/services/_index.md"
+        label: "🛠️ Services Page"
+        name: "services"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          
+          - label: "Description"
+            name: "description"
+            widget: "text"
+          
+          - label: "Content"
+            name: "body"
+            widget: "markdown"
+      
+      - file: "content/contact/_index.md"
+        label: "📞 Contact Page"
+        name: "contact"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+          
+          - label: "Description"
+            name: "description"
+            widget: "text"
+          
+          - label: "Content"
+            name: "body"
+            widget: "markdown"
+
+  # Blog Posts
+  - name: "blog"
+    label: "📝 Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+      
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "Brief description for SEO and previews"
+      
+      - label: "Featured Image"
+        name: "image"
+        widget: "image"
+        required: false
+      
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        hint: "Add relevant tags for categorization"
+      
+      - label: "Categories"
+        name: "categories"
+        widget: "list"
+        required: false
+      
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+        hint: "Set to true to save as draft"
+      
+      - label: "Content"
+        name: "body"
+        widget: "markdown"
+
+  # Site Configuration
+  - name: "config"
+    label: "⚙️ Site Configuration"
+    description: "Manage site-wide settings"
+    files:
+      - file: "hugo.toml"
+        label: "Site Settings"
+        name: "config"
+        format: "toml-frontmatter"
+        fields:
+          - label: "Site Title"
+            name: "title"
+            widget: "string"
+          
+          - label: "Base URL"
+            name: "baseURL"
+            widget: "string"
+            hint: "Your site's URL (e.g., https://yoursite.com/)"
+          
+          - label: "Language Code"
+            name: "languageCode"
+            widget: "string"
+            default: "en-us"
+          
+          - label: "Site Parameters"
+            name: "params"
+            widget: "object"
+            fields:
+              - label: "Site Description"
+                name: "description"
+                widget: "text"
+                hint: "Default SEO description"
+              
+              - label: "Author"
+                name: "author"
+                widget: "string"
+              
+              - label: "Keywords"
+                name: "keywords"
+                widget: "string"
+                hint: "SEO keywords, separated by commas"

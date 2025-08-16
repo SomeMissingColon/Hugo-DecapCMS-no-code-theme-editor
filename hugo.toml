@@ -1,0 +1,60 @@
+baseURL = "https://your-site.com/"
+languageCode = "en-us"
+title = "Hugo CMS Starter Kit"
+publishDir = "public"
+
+[params]
+  description = "A starter kit for Hugo websites with integrated CMS"
+  author = "Your Name"
+  keywords = "hugo, cms, website, starter"
+
+# CMS Preview Data Output Format
+[outputFormats]
+[outputFormats.cmsdata]
+  mediaType = "application/json"
+  baseName = "cms-data"
+  
+[outputs]
+  home = ["HTML", "cmsdata"]
+
+# Main Navigation Menu
+[menu]
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 2
+
+[[menu.main]]
+  name = "Services"
+  url = "/services/"
+  weight = 3
+
+[[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 4
+
+[[menu.main]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 5
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[security]
+  enableInlineShortcodes = false
+  [security.exec]
+    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
+  [security.funcs]
+    getenv = ['^HUGO_']
+  [security.http]
+    methods = ['(?i)GET|POST']
+    urls = ['.*']

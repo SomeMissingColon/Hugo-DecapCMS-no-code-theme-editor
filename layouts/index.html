@@ -1,0 +1,44 @@
+{{ define "main" }}
+<section class="hero">
+    <div class="container">
+        {{ if .Site.Data.theme.hero.enabled }}
+        <div class="hero-content">
+            <h1 class="hero-title">
+                {{ .Site.Data.theme.hero.title | default "Welcome to Your Website" }}
+            </h1>
+            <p class="hero-subtitle">
+                {{ .Site.Data.theme.hero.subtitle | default .Description }}
+            </p>
+            {{ if .Site.Data.theme.hero.button_text }}
+            <a href="{{ .Site.Data.theme.hero.button_url | default "/" }}" class="btn btn-primary">
+                {{ .Site.Data.theme.hero.button_text }}
+            </a>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+</section>
+
+{{ if .Site.Data.theme.features.enabled }}
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">{{ .Site.Data.theme.features.title | default "Features" }}</h2>
+        <div class="features-grid">
+            {{ range .Site.Data.theme.features.items }}
+            <div class="feature-item">
+                <div class="feature-icon">{{ .icon }}</div>
+                <h3>{{ .title }}</h3>
+                <p>{{ .description }}</p>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+<section class="content">
+    <div class="container">
+        {{ .Content }}
+    </div>
+</section>
+{{ end }}

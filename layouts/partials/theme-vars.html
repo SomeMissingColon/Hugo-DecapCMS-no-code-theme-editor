@@ -1,0 +1,14 @@
+<style>
+:root {
+    --bg: {{ .Site.Data.theme.bg | default "#ffffff" }};
+    --text: {{ .Site.Data.theme.text | default "#333333" }};
+    --primary: {{ .Site.Data.theme.primary | default "#2563eb" }};
+    --accent: {{ .Site.Data.theme.accent | default "#10b981" }};
+    --font-family: '{{ .Site.Data.theme.font | default "Inter" }}', sans-serif;
+    
+    /* Derived colors */
+    --bg-secondary: {{ .Site.Data.theme.bg | default "#ffffff" }}f0;
+    --border: {{ .Site.Data.theme.primary | default "#2563eb" }}20;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+</style>

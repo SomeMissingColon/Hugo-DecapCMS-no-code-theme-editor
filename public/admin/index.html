@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Custom Branding Styles -->
+    <style>
+        /* White-label the CMS interface */
+        .css-1qr9wx0 { /* Netlify CMS header */
+            background: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .css-1l6c7y9 { /* Main content area */
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Content Manager App -->
+    <div id="nc-root"></div>
+    
+    <!-- Decap CMS Script -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <!-- Initialize CMS with custom configuration -->
+    <script type="module">
+        // Register Google Fonts widget
+        import('./widgets/GoogleFontSelect.js');
+        
+        // Register preview templates
+        import('./preview-templates/registerPreviews.js');
+        
+        // Initialize Netlify Identity
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+{{- $data := dict -}}
+
+{{/* Site Information */}}
+{{- $site := dict 
+  "title" site.Title 
+  "description" (site.Params.description | default .Description)
+  "baseURL" site.BaseURL
+-}}
+{{- $data = merge $data (dict "site" $site) -}}
+
+{{/* Theme Data */}}
+{{- $theme := .Site.Data.theme | default dict -}}
+{{- $data = merge $data (dict "theme" $theme) -}}
+
+{{/* Navigation Data */}}
+{{- $navigation := slice -}}
+{{- if $theme.nav -}}
+  {{- $navigation = $theme.nav -}}
+{{- else if site.Menus.main -}}
+  {{- range site.Menus.main -}}
+    {{- $navigation = $navigation | append (dict "name" .Name "url" .URL "weight" .Weight) -}}
+  {{- end -}}
+{{- end -}}
+{{- $data = merge $data (dict "navigation" $navigation) -}}
+
+{{/* Layout Components - Generic and Configurable */}}
+{{- $layout := dict -}}
+
+{{/* Header Component */}}
+{{- $header := dict
+  "type" "site-header"
+  "logo" ($theme.logo | default "")
+  "title" ($theme.site_title | default site.Title)
+  "navigation" $navigation
+  "show_mobile_menu" true
+-}}
+{{- $layout = merge $layout (dict "header" $header) -}}
+
+{{/* Hero Section */}}
+{{- $hero := dict
+  "type" "hero-section"
+  "enabled" ($theme.hero.enabled | default true)
+  "title" ($theme.hero.title | default "Welcome to Your Website")
+  "subtitle" ($theme.hero.subtitle | default .Description)
+  "button" (dict
+    "text" ($theme.hero.button_text | default "")
+    "url" ($theme.hero.button_url | default "/")
+  )
+  "background_image" ($theme.hero.background_image | default "")
+-}}
+{{- $layout = merge $layout (dict "hero" $hero) -}}
+
+{{/* Features Section */}}
+{{- $features := dict
+  "type" "features-grid"
+  "enabled" ($theme.features.enabled | default true)
+  "title" ($theme.features.title | default "Features")
+  "items" ($theme.features.items | default slice)
+-}}
+{{- $layout = merge $layout (dict "features" $features) -}}
+
+{{/* Content Section */}}
+{{- $content := dict
+  "type" "page-content"
+  "content" .Content
+-}}
+{{- $layout = merge $layout (dict "content" $content) -}}
+
+{{/* Footer Component */}}
+{{- $footer := dict
+  "type" "site-footer"
+  "site_title" site.Title
+  "description" site.Params.description
+  "navigation" $navigation
+-}}
+{{- $layout = merge $layout (dict "footer" $footer) -}}
+
+{{/* Section Rendering Order */}}
+{{- $sections := slice "header" "hero" "features" "content" "footer" -}}
+{{- $layout = merge $layout (dict "sections" $sections) -}}
+
+{{- $data = merge $data (dict "layout" $layout) -}}
+
+{{/* Metadata */}}
+{{- $meta := dict
+  "generated" (now.Format "2006-01-02T15:04:05Z07:00")
+  "version" "1.0"
+  "generator" "Hugo CMS Starter Kit"
+-}}
+{{- $data = merge $data (dict "meta" $meta) -}}
+
+{{/* Output as JSON */}}
+{{- $data | jsonify -}}

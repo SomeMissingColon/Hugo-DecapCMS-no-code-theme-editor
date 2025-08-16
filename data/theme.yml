@@ -1,0 +1,51 @@
+# Hugo CMS Starter Kit - Theme Configuration
+# These values can be customized through the CMS interface
+
+# Color Scheme
+bg: "#ffffff"          # Background color
+text: "#333333"        # Primary text color  
+primary: "#2563eb"     # Primary brand color
+accent: "#10b981"      # Accent/highlight color
+
+# Typography
+font: "Inter"          # Main font family
+
+# Branding
+logo: ""               # Logo image path (uploaded via CMS)
+site_title: "Your Site Name"
+
+# Navigation (can also be managed via Hugo menus)
+nav:
+  - name: "Home"
+    url: "/"
+  - name: "About" 
+    url: "/about/"
+  - name: "Services"
+    url: "/services/"
+  - name: "Blog"
+    url: "/blog/"
+  - name: "Contact"
+    url: "/contact/"
+
+# Homepage Sections
+hero:
+  enabled: true
+  title: "Welcome to Your Website"
+  subtitle: "Customize this content through the CMS interface"
+  button_text: "Get Started"
+  button_url: "/about/"
+  background_image: ""
+
+features:
+  enabled: true
+  title: "Key Features"
+  items:
+    - title: "Easy to Use"
+      description: "Simple interface for content management"
+      icon: "⚡"
+    - title: "Customizable" 
+      description: "Change colors, fonts, and layout"
+      icon: "🎨"
+    - title: "Fast & Secure"
+      description: "Built with modern web technologies"
+      icon: "🔒"
