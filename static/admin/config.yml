@@ -13,8 +13,8 @@ media_folder: static/images/uploads
 public_folder: /images/uploads
 
 # Site configuration
-site_url: https://your-site.com # Change to your site URL
-display_url: https://your-site.com
+site_url: https://ekoe-demo.netlify.app/
+display_url: https://ekoe-demo.netlify.app/
 logo_url: /images/logo.svg # Optional: path to your logo
 
 # Content collections
