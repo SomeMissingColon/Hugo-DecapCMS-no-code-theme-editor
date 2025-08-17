@@ -27,7 +27,7 @@ body {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -99,17 +99,25 @@ body {
 .hero {
     position: relative;
     min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
     overflow: hidden;
+    z-index: 1;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
 }
 
 /* Default gradient background (fallback) */
-.hero:not(.hero-image):not(.hero-video) {
+.hero[data-bg-type="gradient"], .hero:not([data-bg-type]) {
     background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+/* Remove background for video and image types */
+.hero[data-bg-type="video"], .hero[data-bg-type="image"] {
+    background: none;
 }
 
 /* Video Background Specific Styles */
@@ -119,7 +127,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2;
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -132,7 +140,7 @@ body {
 }
 
 /* Image Background Specific Styles */
-.hero-image {
+.hero[data-bg-type="image"] {
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -145,7 +153,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 2;
 }
 
 /* Performance optimizations */
@@ -159,7 +167,10 @@ body {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
-    z-index: 2;
+    z-index: 10;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
 }
 
 .hero-title {
@@ -230,6 +241,7 @@ body {
 /* Features Section */
 .features {
     padding: 4rem 0;
+    background: var(--bg);
 }
 
 .section-title {
@@ -400,6 +412,7 @@ body {
 /* Testimonials Section */
 .testimonials {
     padding: 4rem 0;
+    background: var(--bg);
 }
 
 .testimonials-grid {
@@ -454,6 +467,7 @@ body {
 /* Content Section */
 .content {
     padding: 2rem 0;
+    background: var(--bg);
 }
 
 /* Page Styles */
@@ -690,7 +704,7 @@ body {
         padding: 2rem 0;
     }
     
-    .hero-image {
+    .hero[data-bg-type="image"] {
         background-attachment: scroll; /* Better performance on mobile */
     }
     
@@ -705,14 +719,14 @@ body {
         animation: none;
     }
     
-    .hero-image {
+    .hero[data-bg-type="image"] {
         background-attachment: scroll;
     }
 }
 
 /* High DPI displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .hero-image {
+    .hero[data-bg-type="image"] {
         /* Use higher quality images for retina displays */
         background-size: cover;
     }

@@ -34,8 +34,8 @@ hero:
       overlay: true
       overlay_opacity: 0.5
     video:
-      src: https://videos.pexels.com/video-files/30495006/13066879_2560_1440_30fps.mp4
-      poster: ""
+      src: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+      poster: "https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
       autoplay: true
       loop: true
       overlay: true

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Hugo CMS Starter Kit</title>
-    <link>https://your-site.com/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Hugo CMS Starter Kit</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jan 2024 10:00:00 +0000</lastBuildDate>
-    <atom:link href="https://your-site.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting-Started</title>
-      <link>https://your-site.com/tags/getting-started/</link>
+      <link>http://localhost:1313/tags/getting-started/</link>
       <pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate>
-      <guid>https://your-site.com/tags/getting-started/</guid>
+      <guid>http://localhost:1313/tags/getting-started/</guid>
       <description></description>
     </item>
     <item>
       <title>Welcome</title>
-      <link>https://your-site.com/tags/welcome/</link>
+      <link>http://localhost:1313/tags/welcome/</link>
       <pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate>
-      <guid>https://your-site.com/tags/welcome/</guid>
+      <guid>http://localhost:1313/tags/welcome/</guid>
       <description></description>
     </item>
   </channel>

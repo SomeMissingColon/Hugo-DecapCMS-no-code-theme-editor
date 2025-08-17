@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1315&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Announcements | Hugo CMS Starter Kit</title>
@@ -36,22 +36,34 @@
 }
 
 
+
+
+
+
  
-.hero-gradient {
-    
-    
-    
-    
-    
-    
-    
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
 }
 
+.hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 
-
-
+.hero-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 
 
  
@@ -62,13 +74,13 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+    z-index: 2;
 }
 
  
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     color: white;
     text-align: center;
     max-width: 800px;
@@ -240,5 +252,8 @@
         </div>
     </div>
 </footer>
+    
+    
+    <script src="/js/hero-video.js"></script>
 </body>
 </html>
