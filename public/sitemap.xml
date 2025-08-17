@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/categories/announcements/</loc>
+    <loc>https://your-site.com/categories/announcements/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/</loc>
+    <loc>https://your-site.com/blog/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://your-site.com/categories/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/getting-started/</loc>
+    <loc>https://your-site.com/tags/getting-started/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://your-site.com/tags/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/welcome/</loc>
+    <loc>https://your-site.com/tags/welcome/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://your-site.com/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/welcome-post/</loc>
+    <loc>https://your-site.com/blog/welcome-post/</loc>
     <lastmod>2024-01-15T10:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/privacy/</loc>
+    <loc>https://your-site.com/privacy/</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://your-site.com/about/</loc>
   </url><url>
-    <loc>http://localhost:1313/contact/</loc>
+    <loc>https://your-site.com/contact/</loc>
   </url><url>
-    <loc>http://localhost:1313/services/</loc>
+    <loc>https://your-site.com/services/</loc>
   </url>
 </urlset>
