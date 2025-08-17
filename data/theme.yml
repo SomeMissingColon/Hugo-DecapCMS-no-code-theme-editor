@@ -3,8 +3,8 @@ text: "#333333"
 primary: "#2563eb"
 accent: "#10b981"
 font: Inter
-site_title: Your Site Name
-logo: ""
+site_title: Demo site
+logo: /images/uploads/logo.svg
 hero:
   title: Welcome to Your Website
   subtitle: Customize this content through the CMS interface
@@ -35,7 +35,7 @@ hero:
       overlay_opacity: 0.5
     video:
       src: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-      poster: "https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
+      poster: https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg
       autoplay: true
       loop: true
       overlay: true
