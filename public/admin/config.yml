@@ -99,32 +99,68 @@ collections:
                 widget: "boolean"
                 default: true
               
-              - label: "Hero Title"
+              - label: "Hero Title (H1)"
                 name: "title"
                 widget: "string"
                 default: "Welcome to Your Website"
+                hint: "Main headline - will be displayed as H1"
               
-              - label: "Hero Subtitle"
+              - label: "Hero Subtitle (H2)"
                 name: "subtitle"
                 widget: "text"
                 default: "Customize this content through the CMS interface"
+                hint: "Supporting text under the main title"
               
-              - label: "Call-to-Action Button"
-                name: "button_text"
-                widget: "string"
+              - label: "Description Text"
+                name: "description"
+                widget: "markdown"
                 required: false
-                default: "Get Started"
+                hint: "Optional longer description text below subtitle"
               
-              - label: "Button Link"
-                name: "button_url"
-                widget: "string"
+              - label: "Primary CTA Button"
+                name: "primary_button"
+                widget: "object"
+                collapsed: false
+                fields:
+                  - label: "Button Text"
+                    name: "text"
+                    widget: "string"
+                    default: "Get Started"
+                  - label: "Button URL"
+                    name: "url"
+                    widget: "string"
+                    default: "/about/"
+                  - label: "Button Style"
+                    name: "style"
+                    widget: "select"
+                    options: ["primary", "secondary", "outline"]
+                    default: "primary"
+              
+              - label: "Secondary CTA Button"
+                name: "secondary_button"
+                widget: "object"
                 required: false
-                default: "/about/"
+                collapsed: true
+                fields:
+                  - label: "Button Text"
+                    name: "text"
+                    widget: "string"
+                    default: "Learn More"
+                  - label: "Button URL"
+                    name: "url"
+                    widget: "string"
+                    default: "/about/"
+                  - label: "Button Style"
+                    name: "style"
+                    widget: "select"
+                    options: ["primary", "secondary", "outline"]
+                    default: "secondary"
               
               - label: "Background Image"
                 name: "background_image"
                 widget: "image"
                 required: false
+                hint: "Optional hero background image"
           
           # Features Section
           - label: "✨ Features Section"
@@ -137,29 +173,242 @@ collections:
                 widget: "boolean"
                 default: true
               
-              - label: "Section Title"
+              - label: "Section Title (H2)"
                 name: "title"
                 widget: "string"
                 default: "Key Features"
+                hint: "Main section heading"
+              
+              - label: "Section Subtitle"
+                name: "subtitle"
+                widget: "text"
+                required: false
+                hint: "Optional description text below the section title"
               
               - label: "Feature Items"
                 name: "items"
                 widget: "list"
+                hint: "Add up to 6 features for best display"
                 fields:
-                  - label: "Feature Title"
+                  - label: "Feature Title (H3)"
                     name: "title"
                     widget: "string"
+                    hint: "Individual feature heading"
                   
                   - label: "Description"
                     name: "description"
                     widget: "text"
+                    hint: "Explain this feature's benefits"
                   
                   - label: "Icon"
                     name: "icon"
                     widget: "string"
-                    hint: "Emoji or icon character"
+                    hint: "Emoji or icon character (e.g., ⚡, 🎨, 🔒)"
                     default: "⭐"
+                  
+                  - label: "Link (Optional)"
+                    name: "link"
+                    widget: "object"
+                    required: false
+                    collapsed: true
+                    fields:
+                      - label: "Link Text"
+                        name: "text"
+                        widget: "string"
+                        default: "Learn More"
+                      - label: "Link URL"
+                        name: "url"
+                        widget: "string"
           
+          # About Section
+          - label: "📖 About Section"
+            name: "about"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Enable About Section"
+                name: "enabled"
+                widget: "boolean"
+                default: false
+              
+              - label: "Section Title (H2)"
+                name: "title"
+                widget: "string"
+                default: "About Us"
+              
+              - label: "Content"
+                name: "content"
+                widget: "markdown"
+                hint: "Main about content with rich text formatting"
+              
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                required: false
+                hint: "Optional image for the about section"
+              
+              - label: "Call-to-Action"
+                name: "cta"
+                widget: "object"
+                required: false
+                collapsed: true
+                fields:
+                  - label: "CTA Text"
+                    name: "text"
+                    widget: "string"
+                    default: "Learn More About Us"
+                  - label: "CTA URL"
+                    name: "url"
+                    widget: "string"
+                    default: "/about/"
+          
+          # Call-to-Action Section
+          - label: "📢 Call-to-Action Section"
+            name: "cta_section"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Enable CTA Section"
+                name: "enabled"
+                widget: "boolean"
+                default: false
+              
+              - label: "Background Style"
+                name: "background"
+                widget: "select"
+                options: ["primary", "accent", "dark", "light"]
+                default: "primary"
+                hint: "Color scheme for the CTA section"
+              
+              - label: "Title (H2)"
+                name: "title"
+                widget: "string"
+                default: "Ready to Get Started?"
+              
+              - label: "Subtitle"
+                name: "subtitle"
+                widget: "text"
+                required: false
+                hint: "Supporting text for the CTA"
+              
+              - label: "Primary Button"
+                name: "primary_button"
+                widget: "object"
+                fields:
+                  - label: "Button Text"
+                    name: "text"
+                    widget: "string"
+                    default: "Get Started Now"
+                  - label: "Button URL"
+                    name: "url"
+                    widget: "string"
+                    default: "/contact/"
+              
+              - label: "Secondary Button"
+                name: "secondary_button"
+                widget: "object"
+                required: false
+                collapsed: true
+                fields:
+                  - label: "Button Text"
+                    name: "text"
+                    widget: "string"
+                    default: "Learn More"
+                  - label: "Button URL"
+                    name: "url"
+                    widget: "string"
+                    default: "/about/"
+          
+          # Testimonials Section
+          - label: "💬 Testimonials Section"
+            name: "testimonials"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Enable Testimonials Section"
+                name: "enabled"
+                widget: "boolean"
+                default: false
+              
+              - label: "Section Title (H2)"
+                name: "title"
+                widget: "string"
+                default: "What Our Clients Say"
+              
+              - label: "Testimonials"
+                name: "items"
+                widget: "list"
+                hint: "Add customer testimonials"
+                fields:
+                  - label: "Quote"
+                    name: "quote"
+                    widget: "text"
+                    hint: "The testimonial text"
+                  
+                  - label: "Client Name"
+                    name: "name"
+                    widget: "string"
+                  
+                  - label: "Client Title/Company"
+                    name: "title"
+                    widget: "string"
+                    required: false
+                  
+                  - label: "Client Photo"
+                    name: "photo"
+                    widget: "image"
+                    required: false
+                    hint: "Optional client headshot"
+          
+          # Analytics & Tracking
+          - label: "📊 Analytics & Tracking"
+            name: "analytics"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Enable Google Analytics"
+                name: "enabled"
+                widget: "boolean"
+                default: false
+                hint: "Turn on/off Google Analytics tracking"
+              
+              - label: "Google Analytics 4 ID"
+                name: "ga4_id"
+                widget: "string"
+                required: false
+                hint: "Your GA4 Measurement ID (e.g., G-XXXXXXXXXX)"
+                pattern: ['^G-[A-Z0-9]{10}$|^$', "Must be a valid GA4 ID (G-XXXXXXXXXX) or empty"]
+              
+              - label: "Cookie Consent"
+                name: "cookie_consent"
+                widget: "boolean"
+                default: true
+                hint: "Require user consent before tracking (GDPR compliance)"
+              
+              - label: "Track External Links"
+                name: "track_external_links"
+                widget: "boolean"
+                default: true
+                hint: "Track clicks on external links"
+              
+              - label: "Track File Downloads"
+                name: "track_downloads"
+                widget: "boolean"
+                default: true
+                hint: "Track PDF and other file downloads"
+              
+              - label: "Enhanced Ecommerce"
+                name: "enhanced_ecommerce"
+                widget: "boolean"
+                default: false
+                hint: "Enable enhanced ecommerce tracking (for online stores)"
+              
+              - label: "Debug Mode"
+                name: "debug_mode"
+                widget: "boolean"
+                default: false
+                hint: "Enable analytics debug mode (for development)"
+
           # Navigation Menu
           - label: "🧭 Navigation Menu"
             name: "nav"

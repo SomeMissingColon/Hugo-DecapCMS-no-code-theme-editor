@@ -89,6 +89,15 @@ export default createClass({
     const typography = e?.getIn(['data', 'typography']) || {};
     const branding = e?.getIn(['data', 'branding']) || {};
     
+    // Extract content sections (hero, features, about, etc.)
+    const hero = e?.getIn(['data', 'hero']) || {};
+    const features = e?.getIn(['data', 'features']) || {};
+    const about = e?.getIn(['data', 'about']) || {};
+    const cta_section = e?.getIn(['data', 'cta_section']) || {};
+    const testimonials = e?.getIn(['data', 'testimonials']) || {};
+    const analytics = e?.getIn(['data', 'analytics']) || {};
+    const nav = e?.getIn(['data', 'nav']) || [];
+    
     return {
       bg: colors.bg || layoutTheme.bg || '#ffffff',
       text: colors.text || layoutTheme.text || '#333333',
@@ -96,8 +105,132 @@ export default createClass({
       accent: colors.accent || layoutTheme.accent || '#10b981',
       font: typography.font || layoutTheme.font || 'Inter',
       site_title: branding.site_title || layoutTheme.site_title || 'Your Site',
-      logo: this.getLogo()
+      logo: this.getLogo(),
+      
+      // Content sections
+      hero: this.processHeroData(hero, layoutTheme.hero),
+      features: this.processFeaturesData(features, layoutTheme.features),
+      about: this.processAboutData(about, layoutTheme.about),
+      cta_section: this.processCTAData(cta_section, layoutTheme.cta_section),
+      testimonials: this.processTestimonialsData(testimonials, layoutTheme.testimonials),
+      analytics: this.processAnalyticsData(analytics, layoutTheme.analytics),
+      nav: this.processNavData(nav, layoutTheme.nav)
     };
+  },
+
+  processHeroData(cmsHero, defaultHero = {}) {
+    const primary_button = cmsHero.primary_button || defaultHero.primary_button || {};
+    const secondary_button = cmsHero.secondary_button || defaultHero.secondary_button || {};
+    
+    return {
+      enabled: cmsHero.enabled !== undefined ? cmsHero.enabled : (defaultHero.enabled !== false),
+      title: cmsHero.title || defaultHero.title || 'Welcome to Your Website',
+      subtitle: cmsHero.subtitle || defaultHero.subtitle || '',
+      description: cmsHero.description || defaultHero.description || '',
+      background_image: this.getAssetUrl(cmsHero.background_image) || this.getAssetUrl(defaultHero.background_image) || '',
+      primary_button: {
+        text: primary_button.text || 'Get Started',
+        url: primary_button.url || '/',
+        style: primary_button.style || 'primary'
+      },
+      secondary_button: {
+        text: secondary_button.text || '',
+        url: secondary_button.url || '/',
+        style: secondary_button.style || 'secondary'
+      }
+    };
+  },
+
+  processFeaturesData(cmsFeatures, defaultFeatures = {}) {
+    const items = cmsFeatures.items?.toJS?.() || cmsFeatures.items || defaultFeatures.items || [];
+    
+    return {
+      enabled: cmsFeatures.enabled !== undefined ? cmsFeatures.enabled : (defaultFeatures.enabled !== false),
+      title: cmsFeatures.title || defaultFeatures.title || 'Key Features',
+      subtitle: cmsFeatures.subtitle || defaultFeatures.subtitle || '',
+      items: items.map(item => ({
+        title: item.title || '',
+        description: item.description || '',
+        icon: item.icon || '⭐',
+        link: item.link || null
+      }))
+    };
+  },
+
+  processAboutData(cmsAbout, defaultAbout = {}) {
+    const cta = cmsAbout.cta || defaultAbout.cta || {};
+    
+    return {
+      enabled: cmsAbout.enabled !== undefined ? cmsAbout.enabled : (defaultAbout.enabled || false),
+      title: cmsAbout.title || defaultAbout.title || 'About Us',
+      content: cmsAbout.content || defaultAbout.content || '',
+      image: this.getAssetUrl(cmsAbout.image) || this.getAssetUrl(defaultAbout.image) || '',
+      cta: {
+        text: cta.text || '',
+        url: cta.url || '/about/'
+      }
+    };
+  },
+
+  processCTAData(cmsCTA, defaultCTA = {}) {
+    const primary_button = cmsCTA.primary_button || defaultCTA.primary_button || {};
+    const secondary_button = cmsCTA.secondary_button || defaultCTA.secondary_button || {};
+    
+    return {
+      enabled: cmsCTA.enabled !== undefined ? cmsCTA.enabled : (defaultCTA.enabled || false),
+      background: cmsCTA.background || defaultCTA.background || 'primary',
+      title: cmsCTA.title || defaultCTA.title || 'Ready to Get Started?',
+      subtitle: cmsCTA.subtitle || defaultCTA.subtitle || '',
+      primary_button: {
+        text: primary_button.text || 'Get Started',
+        url: primary_button.url || '/contact/'
+      },
+      secondary_button: {
+        text: secondary_button.text || '',
+        url: secondary_button.url || '/about/'
+      }
+    };
+  },
+
+  processTestimonialsData(cmsTestimonials, defaultTestimonials = {}) {
+    const items = cmsTestimonials.items?.toJS?.() || cmsTestimonials.items || defaultTestimonials.items || [];
+    
+    return {
+      enabled: cmsTestimonials.enabled !== undefined ? cmsTestimonials.enabled : (defaultTestimonials.enabled || false),
+      title: cmsTestimonials.title || defaultTestimonials.title || 'What Our Clients Say',
+      items: items.map(item => ({
+        quote: item.quote || '',
+        name: item.name || '',
+        title: item.title || '',
+        photo: this.getAssetUrl(item.photo) || ''
+      }))
+    };
+  },
+
+  processAnalyticsData(cmsAnalytics, defaultAnalytics = {}) {
+    return {
+      enabled: cmsAnalytics.enabled !== undefined ? cmsAnalytics.enabled : (defaultAnalytics.enabled || false),
+      ga4_id: cmsAnalytics.ga4_id || defaultAnalytics.ga4_id || '',
+      cookie_consent: cmsAnalytics.cookie_consent !== undefined ? cmsAnalytics.cookie_consent : (defaultAnalytics.cookie_consent !== false),
+      track_external_links: cmsAnalytics.track_external_links !== undefined ? cmsAnalytics.track_external_links : (defaultAnalytics.track_external_links !== false),
+      track_downloads: cmsAnalytics.track_downloads !== undefined ? cmsAnalytics.track_downloads : (defaultAnalytics.track_downloads !== false),
+      enhanced_ecommerce: cmsAnalytics.enhanced_ecommerce !== undefined ? cmsAnalytics.enhanced_ecommerce : (defaultAnalytics.enhanced_ecommerce || false),
+      debug_mode: cmsAnalytics.debug_mode !== undefined ? cmsAnalytics.debug_mode : (defaultAnalytics.debug_mode || false)
+    };
+  },
+
+  processNavData(cmsNav, defaultNav = []) {
+    const navItems = cmsNav?.toJS?.() || cmsNav || defaultNav || [];
+    return navItems.map(item => ({
+      name: item.name || '',
+      url: item.url || '/'
+    }));
+  },
+
+  getAssetUrl(asset) {
+    if (!asset) return '';
+    if (typeof asset === 'string') return asset;
+    return this.props.getAsset?.(asset) || '';
   },
 
   getLogo() {
@@ -213,32 +346,44 @@ export default createClass({
 
     const css = this.generateThemeCSS(theme);
 
-    // Render sections dynamically based on layout data
-    const sections = (layoutData.layout?.sections || []).map((sectionKey, index) => {
-      const originalSectionData = layoutData.layout[sectionKey];
-      if (!originalSectionData || !originalSectionData.type) return null;
-
-      const renderer = ComponentRegistry[originalSectionData.type];
-      if (!renderer) {
-        console.warn(`No renderer found for section type: ${originalSectionData.type}`);
-        return null;
-      }
-
-      // Merge navigation data for header component
-      let sectionData = originalSectionData;
-      if (originalSectionData.type === 'site-header') {
-        sectionData = {
-          ...originalSectionData,
-          navigation: navigation,
+    // For theme editing, render homepage content sections directly from theme data
+    const sections = [
+      // Site Header
+      h("div", { key: "site-header" }, 
+        ComponentRegistry['site-header']({
+          type: 'site-header',
+          navigation: theme.nav || navigation,
           logo: theme.logo,
-          title: theme.site_title
-        };
-      }
-
-      return h("div", { key: `section-${sectionKey}-${index}` }, 
-        renderer(sectionData, theme)
-      );
-    });
+          title: theme.site_title,
+          show_mobile_menu: true
+        }, theme)
+      ),
+      
+      // Enhanced Hero Section
+      theme.hero?.enabled && h("div", { key: "enhanced-hero" }, 
+        ComponentRegistry['enhanced-hero'](theme.hero, theme)
+      ),
+      
+      // Enhanced Features Section
+      theme.features?.enabled && h("div", { key: "enhanced-features" }, 
+        ComponentRegistry['enhanced-features'](theme.features, theme)
+      ),
+      
+      // About Section
+      theme.about?.enabled && h("div", { key: "about-section" }, 
+        ComponentRegistry['about-section'](theme.about, theme)
+      ),
+      
+      // Testimonials Section
+      theme.testimonials?.enabled && h("div", { key: "testimonials-section" }, 
+        ComponentRegistry['testimonials-section'](theme.testimonials, theme)
+      ),
+      
+      // CTA Section
+      theme.cta_section?.enabled && h("div", { key: "cta-section" }, 
+        ComponentRegistry['cta-section'](theme.cta_section, theme)
+      )
+    ].filter(Boolean);
 
     return h(
       "div",
@@ -248,6 +393,23 @@ export default createClass({
         h("style", null, css),
 
         h("div", { className: "preview-container" }, [
+          // Analytics status indicator (for preview only)
+          theme.analytics?.enabled && theme.analytics?.ga4_id && h("div", {
+            style: {
+              position: 'fixed',
+              top: '10px',
+              right: '10px',
+              background: '#10b981',
+              color: 'white',
+              padding: '8px 12px',
+              borderRadius: '4px',
+              fontSize: '12px',
+              fontWeight: '600',
+              zIndex: '9999',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            }
+          }, `📊 Analytics: ${theme.analytics.ga4_id}`),
+          
           ...sections,
           
           // Add mobile menu (optional)

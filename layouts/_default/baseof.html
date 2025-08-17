@@ -15,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family={{ .Site.Data.theme.font | urlize }}:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     {{ end }}
+    
+    <!-- Google Analytics -->
+    {{ partial "analytics.html" . }}
 </head>
 <body>
     {{ partial "header.html" . }}

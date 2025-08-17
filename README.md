@@ -211,14 +211,34 @@ Built-in SEO features:
 
 ### Netlify (Recommended)
 
-1. **Connect repository** to Netlify
-2. **Build settings**:
+#### One-Click Deploy
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/hugo-cms-starter-kit)
+
+#### Manual Deployment
+1. **Push to GitHub**: Upload your code to a GitHub repository
+2. **Connect to Netlify**: Link your GitHub repo to Netlify  
+3. **Build Settings**: Use the included `netlify.toml` configuration
    - Build command: `hugo --gc --minify`
    - Publish directory: `public`
-3. **Configure CMS**:
-   - Enable Netlify Identity
+   - Hugo version: `0.145.0`
+4. **Configure CMS**:
+   - Enable Netlify Identity in site settings
    - Set up Git Gateway
-4. **Custom domain** (optional)
+   - Update `static/admin/config.yml` with your site URL
+5. **Custom domain** (optional)
+
+#### Build Configuration
+The included `netlify.toml` provides optimized settings:
+- ✅ **No Git Dependencies**: Builds without requiring Git access
+- ✅ **Security Headers**: CSRF protection and content security  
+- ✅ **Performance**: Optimized caching and compression
+- ✅ **CMS Support**: Proper headers for admin interface
+
+#### Troubleshooting Netlify Builds
+If you encounter Git access errors:
+- The build configuration removes Git dependencies
+- No `--enableGitInfo` flags are used
+- All builds work without repository access
 
 ### Vercel
 

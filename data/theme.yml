@@ -26,26 +26,101 @@ nav:
     url: "/blog/"
   - name: "Contact"
     url: "/contact/"
+  - name: "Privacy"
+    url: "/privacy/"
 
 # Homepage Sections
 hero:
   enabled: true
   title: "Welcome to Your Website"
   subtitle: "Customize this content through the CMS interface"
-  button_text: "Get Started"
-  button_url: "/about/"
+  description: "This is a fully customizable Hugo website with an integrated content management system. Edit any text, colors, or images through the admin interface."
+  primary_button:
+    text: "Get Started"
+    url: "/about/"
+    style: "primary"
+  secondary_button:
+    text: "Learn More"
+    url: "/services/"
+    style: "secondary"
   background_image: ""
 
 features:
   enabled: true
   title: "Key Features"
+  subtitle: "Everything you need to build a professional website"
   items:
     - title: "Easy to Use"
-      description: "Simple interface for content management"
+      description: "Simple interface for content management with live preview"
       icon: "⚡"
+      link:
+        text: "Learn More"
+        url: "/about/"
     - title: "Customizable" 
-      description: "Change colors, fonts, and layout"
+      description: "Change colors, fonts, layout, and content through the CMS"
       icon: "🎨"
+      link:
+        text: "View Demo"
+        url: "/services/"
     - title: "Fast & Secure"
-      description: "Built with modern web technologies"
+      description: "Built with modern web technologies and best practices"
       icon: "🔒"
+      link:
+        text: "Security Info"
+        url: "/about/"
+
+about:
+  enabled: false
+  title: "About Our Company"
+  content: |
+    We are a team of passionate developers and designers dedicated to creating amazing web experiences. 
+    
+    Our mission is to make powerful website management tools accessible to everyone, regardless of technical expertise.
+    
+    **What we offer:**
+    - Custom website development
+    - Content management solutions
+    - Ongoing support and maintenance
+  image: ""
+  cta:
+    text: "Learn More About Us"
+    url: "/about/"
+
+cta_section:
+  enabled: false
+  background: "primary"
+  title: "Ready to Get Started?"
+  subtitle: "Join thousands of satisfied customers who trust us with their web presence"
+  primary_button:
+    text: "Get Started Now"
+    url: "/contact/"
+  secondary_button:
+    text: "View Pricing"
+    url: "/services/"
+
+testimonials:
+  enabled: false
+  title: "What Our Clients Say"
+  items:
+    - quote: "This CMS has transformed how we manage our website. It's incredibly intuitive and powerful."
+      name: "Sarah Johnson"
+      title: "Marketing Director, TechCorp"
+      photo: ""
+    - quote: "The live preview feature is a game-changer. We can see changes instantly and make decisions faster."
+      name: "Mike Chen"
+      title: "CEO, StartupXYZ"
+      photo: ""
+    - quote: "Best website management solution we've used. Highly recommend for any business."
+      name: "Lisa Rodriguez"
+      title: "Owner, Creative Agency"
+      photo: ""
+
+# Analytics & Tracking
+analytics:
+  enabled: false
+  ga4_id: ""
+  cookie_consent: true
+  track_external_links: true
+  track_downloads: true
+  enhanced_ecommerce: false
+  debug_mode: false

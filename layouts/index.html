@@ -1,36 +1,138 @@
 {{ define "main" }}
-<section class="hero">
+{{ if .Site.Data.theme.hero.enabled }}
+<section class="hero"{{ if .Site.Data.theme.hero.background_image }} style="background-image: url('{{ .Site.Data.theme.hero.background_image }}')"{{ end }}>
     <div class="container">
-        {{ if .Site.Data.theme.hero.enabled }}
         <div class="hero-content">
             <h1 class="hero-title">
                 {{ .Site.Data.theme.hero.title | default "Welcome to Your Website" }}
             </h1>
-            <p class="hero-subtitle">
-                {{ .Site.Data.theme.hero.subtitle | default .Description }}
-            </p>
-            {{ if .Site.Data.theme.hero.button_text }}
-            <a href="{{ .Site.Data.theme.hero.button_url | default "/" }}" class="btn btn-primary">
-                {{ .Site.Data.theme.hero.button_text }}
-            </a>
+            {{ if .Site.Data.theme.hero.subtitle }}
+            <h2 class="hero-subtitle">
+                {{ .Site.Data.theme.hero.subtitle }}
+            </h2>
             {{ end }}
+            {{ if .Site.Data.theme.hero.description }}
+            <div class="hero-description">
+                {{ .Site.Data.theme.hero.description | markdownify }}
+            </div>
+            {{ end }}
+            <div class="hero-buttons">
+                {{ if .Site.Data.theme.hero.primary_button.text }}
+                <a href="{{ .Site.Data.theme.hero.primary_button.url | default "/" }}" 
+                   class="btn btn-{{ .Site.Data.theme.hero.primary_button.style | default "primary" }}">
+                    {{ .Site.Data.theme.hero.primary_button.text }}
+                </a>
+                {{ end }}
+                {{ if .Site.Data.theme.hero.secondary_button.text }}
+                <a href="{{ .Site.Data.theme.hero.secondary_button.url | default "/" }}" 
+                   class="btn btn-{{ .Site.Data.theme.hero.secondary_button.style | default "secondary" }}">
+                    {{ .Site.Data.theme.hero.secondary_button.text }}
+                </a>
+                {{ end }}
+            </div>
         </div>
-        {{ end }}
     </div>
 </section>
+{{ end }}
 
 {{ if .Site.Data.theme.features.enabled }}
 <section class="features">
     <div class="container">
-        <h2 class="section-title">{{ .Site.Data.theme.features.title | default "Features" }}</h2>
+        <div class="section-header">
+            <h2 class="section-title">{{ .Site.Data.theme.features.title | default "Features" }}</h2>
+            {{ if .Site.Data.theme.features.subtitle }}
+            <p class="section-subtitle">{{ .Site.Data.theme.features.subtitle }}</p>
+            {{ end }}
+        </div>
         <div class="features-grid">
             {{ range .Site.Data.theme.features.items }}
             <div class="feature-item">
                 <div class="feature-icon">{{ .icon }}</div>
-                <h3>{{ .title }}</h3>
-                <p>{{ .description }}</p>
+                <h3 class="feature-title">{{ .title }}</h3>
+                <p class="feature-description">{{ .description }}</p>
+                {{ if .link.text }}
+                <a href="{{ .link.url }}" class="feature-link">{{ .link.text }} →</a>
+                {{ end }}
             </div>
             {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ if .Site.Data.theme.about.enabled }}
+<section class="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="section-title">{{ .Site.Data.theme.about.title | default "About Us" }}</h2>
+                <div class="about-description">
+                    {{ .Site.Data.theme.about.content | markdownify }}
+                </div>
+                {{ if .Site.Data.theme.about.cta.text }}
+                <a href="{{ .Site.Data.theme.about.cta.url | default "/about/" }}" class="btn btn-primary">
+                    {{ .Site.Data.theme.about.cta.text }}
+                </a>
+                {{ end }}
+            </div>
+            {{ if .Site.Data.theme.about.image }}
+            <div class="about-image">
+                <img src="{{ .Site.Data.theme.about.image }}" alt="{{ .Site.Data.theme.about.title }}">
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ if .Site.Data.theme.testimonials.enabled }}
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">{{ .Site.Data.theme.testimonials.title | default "What Our Clients Say" }}</h2>
+        <div class="testimonials-grid">
+            {{ range .Site.Data.theme.testimonials.items }}
+            <div class="testimonial-item">
+                <blockquote class="testimonial-quote">
+                    "{{ .quote }}"
+                </blockquote>
+                <div class="testimonial-author">
+                    {{ if .photo }}
+                    <img src="{{ .photo }}" alt="{{ .name }}" class="testimonial-photo">
+                    {{ end }}
+                    <div class="testimonial-info">
+                        <strong class="testimonial-name">{{ .name }}</strong>
+                        {{ if .title }}
+                        <span class="testimonial-title">{{ .title }}</span>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ if .Site.Data.theme.cta_section.enabled }}
+<section class="cta-section cta-{{ .Site.Data.theme.cta_section.background | default "primary" }}">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">{{ .Site.Data.theme.cta_section.title | default "Ready to Get Started?" }}</h2>
+            {{ if .Site.Data.theme.cta_section.subtitle }}
+            <p class="cta-subtitle">{{ .Site.Data.theme.cta_section.subtitle }}</p>
+            {{ end }}
+            <div class="cta-buttons">
+                {{ if .Site.Data.theme.cta_section.primary_button.text }}
+                <a href="{{ .Site.Data.theme.cta_section.primary_button.url | default "/contact/" }}" class="btn btn-primary">
+                    {{ .Site.Data.theme.cta_section.primary_button.text }}
+                </a>
+                {{ end }}
+                {{ if .Site.Data.theme.cta_section.secondary_button.text }}
+                <a href="{{ .Site.Data.theme.cta_section.secondary_button.url | default "/about/" }}" class="btn btn-secondary">
+                    {{ .Site.Data.theme.cta_section.secondary_button.text }}
+                </a>
+                {{ end }}
+            </div>
         </div>
     </div>
 </section>

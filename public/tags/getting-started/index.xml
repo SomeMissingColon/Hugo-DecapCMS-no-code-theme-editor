@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Getting-Started on Hugo CMS Starter Kit</title>
-    <link>http://localhost:1313/tags/getting-started/</link>
-    <description>Recent content in Getting-Started on Hugo CMS Starter Kit</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jan 2024 10:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/getting-started/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Welcome to Your New Website</title>
-      <link>http://localhost:1313/blog/welcome-post/</link>
-      <pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/welcome-post/</guid>
-      <description>&lt;h1 id=&#34;welcome-to-your-new-website&#34;&gt;Welcome to Your New Website!&lt;/h1&gt;&#xA;&lt;p&gt;Congratulations on setting up your new Hugo website with integrated CMS functionality.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-you-can-do&#34;&gt;What You Can Do&lt;/h2&gt;&#xA;&lt;p&gt;With this setup, you can:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Edit Content&lt;/strong&gt;: Modify pages and posts through the CMS interface&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Customize Design&lt;/strong&gt;: Change colors, fonts, and branding&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Manage Media&lt;/strong&gt;: Upload and organize images and files&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Update Navigation&lt;/strong&gt;: Add or modify menu items&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Access the CMS at &lt;code&gt;/admin/&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Log in with your credentials&lt;/li&gt;&#xA;&lt;li&gt;Start customizing your site!&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;need-help&#34;&gt;Need Help?&lt;/h2&gt;&#xA;&lt;p&gt;Check out the documentation for detailed instructions on using your new CMS.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Getting-Started on Hugo CMS Starter Kit</title><link>https://your-site.com/tags/getting-started/</link><description>Recent content in Getting-Started on Hugo CMS Starter Kit</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 15 Jan 2024 10:00:00 +0000</lastBuildDate><atom:link href="https://your-site.com/tags/getting-started/index.xml" rel="self" type="application/rss+xml"/><item><title>Welcome to Your New Website</title><link>https://your-site.com/blog/welcome-post/</link><pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate><guid>https://your-site.com/blog/welcome-post/</guid><description>&lt;h1 id="welcome-to-your-new-website">Welcome to Your New Website!&lt;/h1>
+&lt;p>Congratulations on setting up your new Hugo website with integrated CMS functionality.&lt;/p>
+&lt;h2 id="what-you-can-do">What You Can Do&lt;/h2>
+&lt;p>With this setup, you can:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Edit Content&lt;/strong>: Modify pages and posts through the CMS interface&lt;/li>
+&lt;li>&lt;strong>Customize Design&lt;/strong>: Change colors, fonts, and branding&lt;/li>
+&lt;li>&lt;strong>Manage Media&lt;/strong>: Upload and organize images and files&lt;/li>
+&lt;li>&lt;strong>Update Navigation&lt;/strong>: Add or modify menu items&lt;/li>
+&lt;/ul>
+&lt;h2 id="getting-started">Getting Started&lt;/h2>
+&lt;ol>
+&lt;li>Access the CMS at &lt;code>/admin/&lt;/code>&lt;/li>
+&lt;li>Log in with your credentials&lt;/li>
+&lt;li>Start customizing your site!&lt;/li>
+&lt;/ol>
+&lt;h2 id="need-help">Need Help?&lt;/h2>
+&lt;p>Check out the documentation for detailed instructions on using your new CMS.&lt;/p></description></item></channel></rss>
