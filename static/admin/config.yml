@@ -79,11 +79,6 @@ collections:
             widget: "object"
             collapsed: true
             fields:
-              - label: "Enable Hero Section"
-                name: "enabled"
-                widget: "boolean"
-                default: true
-              
               - label: "Hero Title (H1)"
                 name: "title"
                 widget: "string"

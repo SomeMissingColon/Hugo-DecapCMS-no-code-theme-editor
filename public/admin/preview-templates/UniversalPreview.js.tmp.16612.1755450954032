@@ -117,18 +117,14 @@ export default createClass({
     });
     console.log('Final Theme Values:', { bg, text, primary, accent });
     
-    // Extract content sections - convert Immutable data to JS objects
-    const hero = e?.getIn(['data', 'hero'])?.toJS?.() || e?.getIn(['data', 'hero']) || {};
-    const features = e?.getIn(['data', 'features'])?.toJS?.() || e?.getIn(['data', 'features']) || {};
-    const about = e?.getIn(['data', 'about'])?.toJS?.() || e?.getIn(['data', 'about']) || {};
-    const cta_section = e?.getIn(['data', 'cta_section'])?.toJS?.() || e?.getIn(['data', 'cta_section']) || {};
-    const testimonials = e?.getIn(['data', 'testimonials'])?.toJS?.() || e?.getIn(['data', 'testimonials']) || {};
-    const analytics = e?.getIn(['data', 'analytics'])?.toJS?.() || e?.getIn(['data', 'analytics']) || {};
-    const nav = e?.getIn(['data', 'nav'])?.toJS?.() || e?.getIn(['data', 'nav']) || [];
-    
-    // Debug logging for hero and features
-    console.log('CMS Hero Data:', hero);
-    console.log('CMS Features Data:', features);
+    // Extract content sections
+    const hero = e?.getIn(['data', 'hero']) || {};
+    const features = e?.getIn(['data', 'features']) || {};
+    const about = e?.getIn(['data', 'about']) || {};
+    const cta_section = e?.getIn(['data', 'cta_section']) || {};
+    const testimonials = e?.getIn(['data', 'testimonials']) || {};
+    const analytics = e?.getIn(['data', 'analytics']) || {};
+    const nav = e?.getIn(['data', 'nav']) || [];
     
     return {
       bg: bg,
@@ -407,9 +403,6 @@ export default createClass({
     ];
 
     const css = this.generateThemeCSS(theme);
-    
-    // Create a unique key that changes when theme data changes to force re-render
-    const themeKey = `${theme.bg}-${theme.text}-${theme.primary}-${theme.accent}-${theme.font}-${JSON.stringify(theme.hero).slice(0, 50)}`;
 
     // For theme editing, render homepage content sections directly from theme data
     const sections = [
@@ -457,10 +450,7 @@ export default createClass({
         ...links,
         h("style", null, css),
 
-        h("div", { 
-          key: themeKey, 
-          className: "preview-container" 
-        }, [
+        h("div", { className: "preview-container" }, [
           // Analytics status indicator (for preview only)
           theme.analytics?.enabled && theme.analytics?.ga4_id && h("div", {
             style: {

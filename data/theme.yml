@@ -31,7 +31,6 @@ nav:
 
 # Homepage Sections
 hero:
-  enabled: true
   title: "Welcome to Your Website"
   subtitle: "Customize this content through the CMS interface"
   description: "This is a fully customizable Hugo website with an integrated content management system. Edit any text, colors, or images through the admin interface."

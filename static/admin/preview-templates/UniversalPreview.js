@@ -45,9 +45,10 @@ export default createClass({
   },
 
   async componentDidUpdate(prevProps) {
-    // Re-fetch when entry changes
+    // Re-render when entry changes (force re-render for preview updates)
     if (this.props.entry !== prevProps.entry) {
-      await this.fetchLayoutData();
+      console.log('Preview updating due to entry change');
+      this.forceUpdate();
     }
   },
 
@@ -55,8 +56,16 @@ export default createClass({
     try {
       this.setState({ loading: true, error: null });
       
-      // Fetch the Hugo-generated layout data
-      const response = await fetch('/cms-data.json');
+      // Fetch the Hugo-generated layout data with cache-busting
+      const cacheBuster = Date.now();
+      const response = await fetch(`/cms-data.json?v=${cacheBuster}`, {
+        cache: 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -108,14 +117,18 @@ export default createClass({
     });
     console.log('Final Theme Values:', { bg, text, primary, accent });
     
-    // Extract content sections
-    const hero = e?.getIn(['data', 'hero']) || {};
-    const features = e?.getIn(['data', 'features']) || {};
-    const about = e?.getIn(['data', 'about']) || {};
-    const cta_section = e?.getIn(['data', 'cta_section']) || {};
-    const testimonials = e?.getIn(['data', 'testimonials']) || {};
-    const analytics = e?.getIn(['data', 'analytics']) || {};
-    const nav = e?.getIn(['data', 'nav']) || [];
+    // Extract content sections - convert Immutable data to JS objects
+    const hero = e?.getIn(['data', 'hero'])?.toJS?.() || e?.getIn(['data', 'hero']) || {};
+    const features = e?.getIn(['data', 'features'])?.toJS?.() || e?.getIn(['data', 'features']) || {};
+    const about = e?.getIn(['data', 'about'])?.toJS?.() || e?.getIn(['data', 'about']) || {};
+    const cta_section = e?.getIn(['data', 'cta_section'])?.toJS?.() || e?.getIn(['data', 'cta_section']) || {};
+    const testimonials = e?.getIn(['data', 'testimonials'])?.toJS?.() || e?.getIn(['data', 'testimonials']) || {};
+    const analytics = e?.getIn(['data', 'analytics'])?.toJS?.() || e?.getIn(['data', 'analytics']) || {};
+    const nav = e?.getIn(['data', 'nav'])?.toJS?.() || e?.getIn(['data', 'nav']) || [];
+    
+    // Debug logging for hero and features
+    console.log('CMS Hero Data:', hero);
+    console.log('CMS Features Data:', features);
     
     return {
       bg: bg,
@@ -143,7 +156,7 @@ export default createClass({
     const background = cmsHero.background || defaultHero.background || {};
     
     return {
-      enabled: cmsHero.enabled !== undefined ? cmsHero.enabled : (defaultHero.enabled !== false),
+      enabled: true, // Hero is always enabled
       title: cmsHero.title || defaultHero.title || 'Welcome to Your Website',
       subtitle: cmsHero.subtitle || defaultHero.subtitle || '',
       description: cmsHero.description || defaultHero.description || '',
@@ -394,6 +407,9 @@ export default createClass({
     ];
 
     const css = this.generateThemeCSS(theme);
+    
+    // Create a unique key that changes when theme data changes to force re-render
+    const themeKey = `${theme.bg}-${theme.text}-${theme.primary}-${theme.accent}-${theme.font}-${JSON.stringify(theme.hero).slice(0, 50)}`;
 
     // For theme editing, render homepage content sections directly from theme data
     const sections = [
@@ -441,7 +457,10 @@ export default createClass({
         ...links,
         h("style", null, css),
 
-        h("div", { className: "preview-container" }, [
+        h("div", { 
+          key: themeKey, 
+          className: "preview-container" 
+        }, [
           // Analytics status indicator (for preview only)
           theme.analytics?.enabled && theme.analytics?.ga4_id && h("div", {
             style: {
