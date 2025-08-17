@@ -6,7 +6,7 @@ backend:
   branch: main # Change to your default branch
   
 # For local development, uncomment the following:
-local_backend: true
+#local_backend: true
 
 # Media and asset management
 media_folder: static/images/uploads
