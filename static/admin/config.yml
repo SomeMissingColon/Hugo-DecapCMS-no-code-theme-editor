@@ -6,7 +6,7 @@ backend:
   branch: main # Change to your default branch
   
 # For local development, uncomment the following:
-# local_backend: true
+local_backend: true
 
 # Media and asset management
 media_folder: static/images/uploads
@@ -29,64 +29,49 @@ collections:
         file: "data/theme.yml"
         fields:
           # Color Scheme
-          - label: "🎨 Color Scheme"
-            name: "colors"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "Background Color"
-                name: "bg"
-                widget: "color"
-                default: "#ffffff"
-                hint: "Main background color of the site"
-              
-              - label: "Text Color"
-                name: "text"
-                widget: "color"
-                default: "#333333"
-                hint: "Primary text color"
-              
-              - label: "Primary Brand Color"
-                name: "primary"
-                widget: "color"
-                default: "#2563eb"
-                hint: "Main brand color for headings and buttons"
-              
-              - label: "Accent Color"
-                name: "accent"
-                widget: "color"
-                default: "#10b981"
-                hint: "Secondary color for highlights and CTAs"
+          - label: "Background Color"
+            name: "bg"
+            widget: "color"
+            default: "#ffffff"
+            hint: "Main background color of the site"
+          
+          - label: "Text Color"
+            name: "text"
+            widget: "color"
+            default: "#333333"
+            hint: "Primary text color"
+          
+          - label: "Primary Brand Color"
+            name: "primary"
+            widget: "color"
+            default: "#2563eb"
+            hint: "Main brand color for headings and buttons"
+          
+          - label: "Accent Color"
+            name: "accent"
+            widget: "color"
+            default: "#10b981"
+            hint: "Secondary color for highlights and CTAs"
           
           # Typography
-          - label: "📝 Typography"
-            name: "typography"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "Font Family"
-                name: "font"
-                widget: "googleFontSelect"
-                default: "Inter"
-                hint: "Choose from Google Fonts library"
+          - label: "Font Family"
+            name: "font"
+            widget: "googleFontSelect"
+            default: "Inter"
+            hint: "Choose from Google Fonts library"
           
           # Branding
-          - label: "🏢 Branding"
-            name: "branding"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "Site Title"
-                name: "site_title"
-                widget: "string"
-                default: "Your Site Name"
-                hint: "Displayed in header and footer"
-              
-              - label: "Logo"
-                name: "logo"
-                widget: "image"
-                required: false
-                hint: "Upload your company logo (SVG or PNG recommended)"
+          - label: "Site Title"
+            name: "site_title"
+            widget: "string"
+            default: "Your Site Name"
+            hint: "Displayed in header and footer"
+          
+          - label: "Logo"
+            name: "logo"
+            widget: "image"
+            required: false
+            hint: "Upload your company logo (SVG or PNG recommended)"
           
           # Homepage Hero Section
           - label: "🚀 Hero Section"

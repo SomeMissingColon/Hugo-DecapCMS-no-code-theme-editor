@@ -63,13 +63,14 @@ export default createClass({
       
       const layoutData = await response.json();
       
-      // Validate the data structure
-      if (!layoutData.layout || !layoutData.layout.sections) {
-        throw new Error('Invalid layout data structure');
+      // The layout data structure is valid if we have theme data
+      if (!layoutData.theme) {
+        console.warn('No theme data found in cms-data.json');
       }
       
       this.setState({ layoutData, loading: false });
-      console.log('Successfully loaded universal layout data:', layoutData);
+      console.log('Successfully loaded layout data:', layoutData);
+      console.log('Theme data available:', layoutData.theme);
     } catch (error) {
       console.error('UNIVERSAL PREVIEW ERROR - Failed to load layout data:', error);
       this.setState({ 
@@ -84,12 +85,30 @@ export default createClass({
     const e = this.props.entry;
     const layoutTheme = this.state.layoutData?.theme || {};
     
-    // Extract nested color/typography data from CMS structure
-    const colors = e?.getIn(['data', 'colors']) || {};
-    const typography = e?.getIn(['data', 'typography']) || {};
-    const branding = e?.getIn(['data', 'branding']) || {};
+    // Extract data from flat CMS structure to match theme.yml
+    const bg = e?.getIn(['data', 'bg']) || layoutTheme.bg || '#ffffff';
+    const text = e?.getIn(['data', 'text']) || layoutTheme.text || '#333333';
+    const primary = e?.getIn(['data', 'primary']) || layoutTheme.primary || '#2563eb';
+    const accent = e?.getIn(['data', 'accent']) || layoutTheme.accent || '#10b981';
+    const font = e?.getIn(['data', 'font']) || layoutTheme.font || 'Inter';
+    const site_title = e?.getIn(['data', 'site_title']) || layoutTheme.site_title || 'Your Site';
     
-    // Extract content sections (hero, features, about, etc.)
+    // Debug logging
+    console.log('CMS Entry Data:', {
+      bg: e?.getIn(['data', 'bg']),
+      text: e?.getIn(['data', 'text']),
+      primary: e?.getIn(['data', 'primary']),
+      accent: e?.getIn(['data', 'accent'])
+    });
+    console.log('Layout Theme Data:', {
+      bg: layoutTheme.bg,
+      text: layoutTheme.text,
+      primary: layoutTheme.primary,
+      accent: layoutTheme.accent
+    });
+    console.log('Final Theme Values:', { bg, text, primary, accent });
+    
+    // Extract content sections
     const hero = e?.getIn(['data', 'hero']) || {};
     const features = e?.getIn(['data', 'features']) || {};
     const about = e?.getIn(['data', 'about']) || {};
@@ -99,12 +118,12 @@ export default createClass({
     const nav = e?.getIn(['data', 'nav']) || [];
     
     return {
-      bg: colors.bg || layoutTheme.bg || '#ffffff',
-      text: colors.text || layoutTheme.text || '#333333',
-      primary: colors.primary || layoutTheme.primary || '#2563eb',
-      accent: colors.accent || layoutTheme.accent || '#10b981',
-      font: typography.font || layoutTheme.font || 'Inter',
-      site_title: branding.site_title || layoutTheme.site_title || 'Your Site',
+      bg: bg,
+      text: text,
+      primary: primary,
+      accent: accent,
+      font: font,
+      site_title: site_title,
       logo: this.getLogo(),
       
       // Content sections
@@ -266,8 +285,7 @@ export default createClass({
 
   getLogo() {
     const e = this.props.entry;
-    const branding = e?.getIn(['data', 'branding']) || {};
-    const logo = branding.logo;
+    const logo = e?.getIn(['data', 'logo']);
     return logo ? this.props.getAsset(logo) : null;
   },
 

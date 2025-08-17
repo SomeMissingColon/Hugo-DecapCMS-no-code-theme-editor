@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Hugo CMS Starter Kit</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>http://localhost:1315/categories/</link>
     <description>Recent content in Categories on Hugo CMS Starter Kit</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jan 2024 10:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1315/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Announcements</title>
-      <link>http://localhost:1313/categories/announcements/</link>
+      <link>http://localhost:1315/categories/announcements/</link>
       <pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/categories/announcements/</guid>
+      <guid>http://localhost:1315/categories/announcements/</guid>
       <description></description>
     </item>
   </channel>
