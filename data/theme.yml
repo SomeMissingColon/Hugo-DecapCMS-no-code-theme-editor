@@ -43,7 +43,27 @@ hero:
     text: "Learn More"
     url: "/services/"
     style: "secondary"
-  background_image: ""
+  background:
+    type: "gradient"
+    gradient:
+      style: "linear-diagonal"
+      color1: "#667eea"
+      color2: "#764ba2"
+      color3: ""
+      overlay_opacity: 0.8
+    image:
+      src: ""
+      position: "center center"
+      size: "cover"
+      overlay: true
+      overlay_opacity: 0.5
+    video:
+      src: ""
+      poster: ""
+      autoplay: true
+      loop: true
+      overlay: true
+      overlay_opacity: 0.6
 
 features:
   enabled: true

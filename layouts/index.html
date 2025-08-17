@@ -1,32 +1,61 @@
 {{ define "main" }}
 {{ if .Site.Data.theme.hero.enabled }}
-<section class="hero"{{ if .Site.Data.theme.hero.background_image }} style="background-image: url('{{ .Site.Data.theme.hero.background_image }}')"{{ end }}>
+{{ $hero := .Site.Data.theme.hero }}
+{{ $bg := $hero.background }}
+<section class="hero hero-{{ $bg.type | default "gradient" }}" 
+         data-bg-type="{{ $bg.type | default "gradient" }}"
+         {{- if eq $bg.type "image" }} data-bg-image="{{ $bg.image.src }}"{{ end }}
+         {{- if eq $bg.type "video" }} data-bg-video="{{ $bg.video.src }}"{{ end }}>
+    
+    {{/* Video Background */}}
+    {{ if eq $bg.type "video" }}
+    {{ if $bg.video.src }}
+    <div class="hero-video">
+        <video autoplay{{ if $bg.video.loop }} loop{{ end }} muted playsinline
+               {{ if $bg.video.poster }}poster="{{ $bg.video.poster }}"{{ end }}>
+            <source src="{{ $bg.video.src }}" type="video/mp4">
+            {{/* Fallback to poster image if video fails */}}
+            {{ if $bg.video.poster }}
+            <img src="{{ $bg.video.poster }}" alt="Hero background">
+            {{ end }}
+        </video>
+    </div>
+    {{ end }}
+    {{ end }}
+    
+    {{/* Background Overlay */}}
+    {{ if or (eq $bg.type "image") (eq $bg.type "video") }}
+    {{ if or $bg.image.overlay $bg.video.overlay }}
+    <div class="hero-overlay" style="opacity: {{ if eq $bg.type "image" }}{{ $bg.image.overlay_opacity | default 0.5 }}{{ else }}{{ $bg.video.overlay_opacity | default 0.6 }}{{ end }};"></div>
+    {{ end }}
+    {{ end }}
+    
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                {{ .Site.Data.theme.hero.title | default "Welcome to Your Website" }}
+                {{ $hero.title | default "Welcome to Your Website" }}
             </h1>
-            {{ if .Site.Data.theme.hero.subtitle }}
+            {{ if $hero.subtitle }}
             <h2 class="hero-subtitle">
-                {{ .Site.Data.theme.hero.subtitle }}
+                {{ $hero.subtitle }}
             </h2>
             {{ end }}
-            {{ if .Site.Data.theme.hero.description }}
+            {{ if $hero.description }}
             <div class="hero-description">
-                {{ .Site.Data.theme.hero.description | markdownify }}
+                {{ $hero.description | markdownify }}
             </div>
             {{ end }}
             <div class="hero-buttons">
-                {{ if .Site.Data.theme.hero.primary_button.text }}
-                <a href="{{ .Site.Data.theme.hero.primary_button.url | default "/" }}" 
-                   class="btn btn-{{ .Site.Data.theme.hero.primary_button.style | default "primary" }}">
-                    {{ .Site.Data.theme.hero.primary_button.text }}
+                {{ if $hero.primary_button.text }}
+                <a href="{{ $hero.primary_button.url | default "/" }}" 
+                   class="btn btn-{{ $hero.primary_button.style | default "primary" }}">
+                    {{ $hero.primary_button.text }}
                 </a>
                 {{ end }}
-                {{ if .Site.Data.theme.hero.secondary_button.text }}
-                <a href="{{ .Site.Data.theme.hero.secondary_button.url | default "/" }}" 
-                   class="btn btn-{{ .Site.Data.theme.hero.secondary_button.style | default "secondary" }}">
-                    {{ .Site.Data.theme.hero.secondary_button.text }}
+                {{ if $hero.secondary_button.text }}
+                <a href="{{ $hero.secondary_button.url | default "/" }}" 
+                   class="btn btn-{{ $hero.secondary_button.style | default "secondary" }}">
+                    {{ $hero.secondary_button.text }}
                 </a>
                 {{ end }}
             </div>

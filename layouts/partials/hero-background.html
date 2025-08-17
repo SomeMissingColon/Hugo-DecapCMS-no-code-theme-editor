@@ -1,0 +1,131 @@
+{{/* Hero Background Dynamic CSS Generator */}}
+{{ $hero := .Site.Data.theme.hero }}
+{{ $bg := $hero.background }}
+
+<style id="hero-background-styles">
+/* Dynamic Hero Background Styles */
+.hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+{{ if eq $bg.type "gradient" }}
+/* Gradient Background */
+.hero-gradient {
+    {{ $style := $bg.gradient.style | default "linear-diagonal" }}
+    {{ $color1 := $bg.gradient.color1 | default "#667eea" }}
+    {{ $color2 := $bg.gradient.color2 | default "#764ba2" }}
+    {{ $color3 := $bg.gradient.color3 }}
+    {{ $opacity := $bg.gradient.overlay_opacity | default 0.8 }}
+    
+    {{ if eq $style "linear-lr" }}
+    background: linear-gradient(to right, {{ $color1 }}, {{ $color2 }}{{ if $color3 }}, {{ $color3 }}{{ end }});
+    {{ else if eq $style "linear-tb" }}
+    background: linear-gradient(to bottom, {{ $color1 }}, {{ $color2 }}{{ if $color3 }}, {{ $color3 }}{{ end }});
+    {{ else if eq $style "linear-diagonal" }}
+    background: linear-gradient(135deg, {{ $color1 }}, {{ $color2 }}{{ if $color3 }}, {{ $color3 }}{{ end }});
+    {{ else if eq $style "radial-center" }}
+    background: radial-gradient(circle at center, {{ $color1 }}, {{ $color2 }}{{ if $color3 }}, {{ $color3 }}{{ end }});
+    {{ else if eq $style "radial-corner" }}
+    background: radial-gradient(circle at top left, {{ $color1 }}, {{ $color2 }}{{ if $color3 }}, {{ $color3 }}{{ end }});
+    {{ else }}
+    background: linear-gradient(135deg, {{ $color1 }}, {{ $color2 }}{{ if $color3 }}, {{ $color3 }}{{ end }});
+    {{ end }}
+}
+{{ end }}
+
+{{ if eq $bg.type "image" }}
+/* Image Background */
+.hero-image {
+    {{ if $bg.image.src }}
+    background-image: url('{{ $bg.image.src }}');
+    background-position: {{ $bg.image.position | default "center center" }};
+    background-size: {{ $bg.image.size | default "cover" }};
+    background-repeat: no-repeat;
+    {{ else }}
+    /* Fallback gradient if no image */
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    {{ end }}
+}
+{{ end }}
+
+{{ if eq $bg.type "video" }}
+/* Video Background */
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+{{ end }}
+
+/* Overlay Styles */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* Content Positioning */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Responsive Video Optimization */
+@media (max-width: 768px) {
+    .hero-video video {
+        /* On mobile, prioritize performance */
+        object-fit: cover;
+        object-position: center center;
+    }
+    
+    .hero {
+        min-height: 80vh;
+    }
+}
+
+/* Accessibility: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .hero-video video {
+        animation: none;
+    }
+}
+
+/* Performance: GPU acceleration */
+.hero-video,
+.hero-overlay,
+.hero-content {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+</style>

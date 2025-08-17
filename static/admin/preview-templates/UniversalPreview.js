@@ -121,13 +121,13 @@ export default createClass({
   processHeroData(cmsHero, defaultHero = {}) {
     const primary_button = cmsHero.primary_button || defaultHero.primary_button || {};
     const secondary_button = cmsHero.secondary_button || defaultHero.secondary_button || {};
+    const background = cmsHero.background || defaultHero.background || {};
     
     return {
       enabled: cmsHero.enabled !== undefined ? cmsHero.enabled : (defaultHero.enabled !== false),
       title: cmsHero.title || defaultHero.title || 'Welcome to Your Website',
       subtitle: cmsHero.subtitle || defaultHero.subtitle || '',
       description: cmsHero.description || defaultHero.description || '',
-      background_image: this.getAssetUrl(cmsHero.background_image) || this.getAssetUrl(defaultHero.background_image) || '',
       primary_button: {
         text: primary_button.text || 'Get Started',
         url: primary_button.url || '/',
@@ -137,6 +137,37 @@ export default createClass({
         text: secondary_button.text || '',
         url: secondary_button.url || '/',
         style: secondary_button.style || 'secondary'
+      },
+      background: this.processHeroBackground(background, defaultHero.background)
+    };
+  },
+
+  processHeroBackground(cmsBackground, defaultBackground = {}) {
+    const bgType = cmsBackground.type || defaultBackground.type || 'gradient';
+    
+    return {
+      type: bgType,
+      gradient: {
+        style: cmsBackground.gradient?.style || defaultBackground.gradient?.style || 'linear-diagonal',
+        color1: cmsBackground.gradient?.color1 || defaultBackground.gradient?.color1 || '#667eea',
+        color2: cmsBackground.gradient?.color2 || defaultBackground.gradient?.color2 || '#764ba2',
+        color3: cmsBackground.gradient?.color3 || defaultBackground.gradient?.color3 || '',
+        overlay_opacity: cmsBackground.gradient?.overlay_opacity !== undefined ? cmsBackground.gradient?.overlay_opacity : (defaultBackground.gradient?.overlay_opacity || 0.8)
+      },
+      image: {
+        src: this.getAssetUrl(cmsBackground.image?.src) || this.getAssetUrl(defaultBackground.image?.src) || '',
+        position: cmsBackground.image?.position || defaultBackground.image?.position || 'center center',
+        size: cmsBackground.image?.size || defaultBackground.image?.size || 'cover',
+        overlay: cmsBackground.image?.overlay !== undefined ? cmsBackground.image?.overlay : (defaultBackground.image?.overlay !== false),
+        overlay_opacity: cmsBackground.image?.overlay_opacity !== undefined ? cmsBackground.image?.overlay_opacity : (defaultBackground.image?.overlay_opacity || 0.5)
+      },
+      video: {
+        src: this.getAssetUrl(cmsBackground.video?.src) || this.getAssetUrl(defaultBackground.video?.src) || '',
+        poster: this.getAssetUrl(cmsBackground.video?.poster) || this.getAssetUrl(defaultBackground.video?.poster) || '',
+        autoplay: cmsBackground.video?.autoplay !== undefined ? cmsBackground.video?.autoplay : (defaultBackground.video?.autoplay !== false),
+        loop: cmsBackground.video?.loop !== undefined ? cmsBackground.video?.loop : (defaultBackground.video?.loop !== false),
+        overlay: cmsBackground.video?.overlay !== undefined ? cmsBackground.video?.overlay : (defaultBackground.video?.overlay !== false),
+        overlay_opacity: cmsBackground.video?.overlay_opacity !== undefined ? cmsBackground.video?.overlay_opacity : (defaultBackground.video?.overlay_opacity || 0.6)
       }
     };
   },

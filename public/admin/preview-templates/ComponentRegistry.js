@@ -190,12 +190,149 @@ export function renderMobileMenu(navigation, theme) {
 function renderEnhancedHero(data, theme) {
   if (!data.enabled) return null;
 
-  const heroStyle = data.background_image ? 
-    { backgroundImage: `url(${data.background_image})` } : {};
+  const bg = data.background || {};
+  const bgType = bg.type || 'gradient';
+  
+  // Generate background styles
+  let heroStyle = {};
+  let backgroundContent = [];
+  
+  if (bgType === 'gradient') {
+    const gradient = bg.gradient || {};
+    const style = gradient.style || 'linear-diagonal';
+    const color1 = gradient.color1 || '#667eea';
+    const color2 = gradient.color2 || '#764ba2';
+    const color3 = gradient.color3;
+    
+    let gradientCSS = '';
+    if (style === 'linear-lr') {
+      gradientCSS = `linear-gradient(to right, ${color1}, ${color2}${color3 ? `, ${color3}` : ''})`;
+    } else if (style === 'linear-tb') {
+      gradientCSS = `linear-gradient(to bottom, ${color1}, ${color2}${color3 ? `, ${color3}` : ''})`;
+    } else if (style === 'linear-diagonal') {
+      gradientCSS = `linear-gradient(135deg, ${color1}, ${color2}${color3 ? `, ${color3}` : ''})`;
+    } else if (style === 'radial-center') {
+      gradientCSS = `radial-gradient(circle at center, ${color1}, ${color2}${color3 ? `, ${color3}` : ''})`;
+    } else if (style === 'radial-corner') {
+      gradientCSS = `radial-gradient(circle at top left, ${color1}, ${color2}${color3 ? `, ${color3}` : ''})`;
+    } else {
+      gradientCSS = `linear-gradient(135deg, ${color1}, ${color2}${color3 ? `, ${color3}` : ''})`;
+    }
+    
+    heroStyle.background = gradientCSS;
+  } else if (bgType === 'image' && bg.image?.src) {
+    heroStyle.backgroundImage = `url(${bg.image.src})`;
+    heroStyle.backgroundPosition = bg.image.position || 'center center';
+    heroStyle.backgroundSize = bg.image.size || 'cover';
+    heroStyle.backgroundRepeat = 'no-repeat';
+    
+    // Add overlay if enabled
+    if (bg.image.overlay) {
+      backgroundContent.push(
+        h("div", { 
+          className: "hero-overlay",
+          style: { 
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'rgba(0, 0, 0, ' + (bg.image.overlay_opacity || 0.5) + ')',
+            zIndex: 1
+          }
+        })
+      );
+    }
+  } else if (bgType === 'video' && bg.video?.src) {
+    backgroundContent.push(
+      h("div", { 
+        className: "hero-video",
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -2,
+          overflow: 'hidden'
+        }
+      }, [
+        h("video", {
+          autoPlay: bg.video.autoplay !== false,
+          loop: bg.video.loop !== false,
+          muted: true,
+          playsInline: true,
+          style: {
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center'
+          }
+        }, [
+          h("source", { src: bg.video.src, type: "video/mp4" }),
+          bg.video.poster && h("img", { 
+            src: bg.video.poster, 
+            alt: "Hero background",
+            style: {
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }
+          })
+        ])
+      ])
+    );
+    
+    // Add overlay if enabled
+    if (bg.video.overlay) {
+      backgroundContent.push(
+        h("div", { 
+          className: "hero-overlay",
+          style: { 
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'rgba(0, 0, 0, ' + (bg.video.overlay_opacity || 0.6) + ')',
+            zIndex: 1
+          }
+        })
+      );
+    }
+  } else {
+    // Fallback to theme colors
+    heroStyle.background = `linear-gradient(135deg, ${theme.primary || '#2563eb'}, ${theme.accent || '#10b981'})`;
+  }
 
-  return h("section", { className: "hero", style: heroStyle }, [
+  // Base hero styles
+  Object.assign(heroStyle, {
+    position: 'relative',
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    color: 'white',
+    overflow: 'hidden'
+  });
+
+  return h("section", { 
+    className: `hero hero-${bgType}`, 
+    style: heroStyle 
+  }, [
+    ...backgroundContent,
     h("div", { className: "container" }, [
-      h("div", { className: "hero-content" }, [
+      h("div", { 
+        className: "hero-content",
+        style: {
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '2rem'
+        }
+      }, [
         h("h1", { className: "hero-title" }, data.title),
         data.subtitle && h("h2", { className: "hero-subtitle" }, data.subtitle),
         data.description && h("div", { 

@@ -95,27 +95,64 @@ body {
     transition: 0.3s;
 }
 
-/* Hero Section */
+/* Hero Section Base Styles */
 .hero {
-    padding: 6rem 0;
-    text-align: center;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    color: white;
-    background-size: cover;
-    background-position: center;
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
 }
 
-.hero::before {
-    content: '';
+/* Default gradient background (fallback) */
+.hero:not(.hero-image):not(.hero-video) {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+/* Video Background Specific Styles */
+.hero-video {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.hero-video video,
+.hero-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Image Background Specific Styles */
+.hero-image {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Overlay Styles */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
+}
+
+/* Performance optimizations */
+.hero-video,
+.hero-overlay {
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .hero-content {
@@ -645,5 +682,38 @@ body {
     
     .testimonials-grid {
         grid-template-columns: 1fr;
+    }
+    
+    /* Hero Mobile Optimizations */
+    .hero {
+        min-height: 80vh;
+        padding: 2rem 0;
+    }
+    
+    .hero-image {
+        background-attachment: scroll; /* Better performance on mobile */
+    }
+    
+    .hero-video video {
+        object-position: center center;
+    }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .hero-video video {
+        animation: none;
+    }
+    
+    .hero-image {
+        background-attachment: scroll;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-image {
+        /* Use higher quality images for retina displays */
+        background-size: cover;
     }
 }

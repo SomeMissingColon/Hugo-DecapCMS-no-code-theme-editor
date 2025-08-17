@@ -156,11 +156,153 @@ collections:
                     options: ["primary", "secondary", "outline"]
                     default: "secondary"
               
-              - label: "Background Image"
-                name: "background_image"
-                widget: "image"
-                required: false
-                hint: "Optional hero background image"
+              - label: "🖼️ Hero Background"
+                name: "background"
+                widget: "object"
+                collapsed: false
+                fields:
+                  - label: "Background Type"
+                    name: "type"
+                    widget: "select"
+                    options: 
+                      - { label: "Gradient", value: "gradient" }
+                      - { label: "Image", value: "image" }
+                      - { label: "Video", value: "video" }
+                    default: "gradient"
+                    hint: "Choose your hero background style"
+                  
+                  - label: "🎨 Gradient Settings"
+                    name: "gradient"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - label: "Gradient Style"
+                        name: "style"
+                        widget: "select"
+                        options:
+                          - { label: "Linear (Left to Right)", value: "linear-lr" }
+                          - { label: "Linear (Top to Bottom)", value: "linear-tb" }
+                          - { label: "Linear (Diagonal)", value: "linear-diagonal" }
+                          - { label: "Radial (Center)", value: "radial-center" }
+                          - { label: "Radial (Top Left)", value: "radial-corner" }
+                        default: "linear-diagonal"
+                      
+                      - label: "First Color"
+                        name: "color1"
+                        widget: "color"
+                        default: "#667eea"
+                        hint: "Starting color of the gradient"
+                      
+                      - label: "Second Color"
+                        name: "color2"
+                        widget: "color"
+                        default: "#764ba2"
+                        hint: "Ending color of the gradient"
+                      
+                      - label: "Third Color (Optional)"
+                        name: "color3"
+                        widget: "color"
+                        required: false
+                        hint: "Add a third color for complex gradients"
+                      
+                      - label: "Overlay Opacity"
+                        name: "overlay_opacity"
+                        widget: "number"
+                        default: 0.8
+                        min: 0
+                        max: 1
+                        step: 0.1
+                        hint: "Opacity of the gradient overlay (0 = transparent, 1 = solid)"
+                  
+                  - label: "🖼️ Image Settings"
+                    name: "image"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - label: "Background Image"
+                        name: "src"
+                        widget: "image"
+                        required: false
+                        hint: "Upload your hero background image (1920x1080 recommended)"
+                      
+                      - label: "Image Position"
+                        name: "position"
+                        widget: "select"
+                        options:
+                          - { label: "Center", value: "center center" }
+                          - { label: "Top", value: "center top" }
+                          - { label: "Bottom", value: "center bottom" }
+                          - { label: "Left", value: "left center" }
+                          - { label: "Right", value: "right center" }
+                        default: "center center"
+                      
+                      - label: "Image Size"
+                        name: "size"
+                        widget: "select"
+                        options:
+                          - { label: "Cover (Fill)", value: "cover" }
+                          - { label: "Contain (Fit)", value: "contain" }
+                          - { label: "Auto", value: "auto" }
+                        default: "cover"
+                      
+                      - label: "Dark Overlay"
+                        name: "overlay"
+                        widget: "boolean"
+                        default: true
+                        hint: "Add dark overlay for better text readability"
+                      
+                      - label: "Overlay Opacity"
+                        name: "overlay_opacity"
+                        widget: "number"
+                        default: 0.5
+                        min: 0
+                        max: 1
+                        step: 0.1
+                        hint: "Strength of the dark overlay"
+                  
+                  - label: "🎬 Video Settings"
+                    name: "video"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - label: "Video File"
+                        name: "src"
+                        widget: "file"
+                        required: false
+                        hint: "Upload MP4 video file (max 10MB recommended)"
+                      
+                      - label: "Video Poster"
+                        name: "poster"
+                        widget: "image"
+                        required: false
+                        hint: "Fallback image shown before video loads"
+                      
+                      - label: "Autoplay"
+                        name: "autoplay"
+                        widget: "boolean"
+                        default: true
+                        hint: "Start playing video automatically (muted)"
+                      
+                      - label: "Loop Video"
+                        name: "loop"
+                        widget: "boolean"
+                        default: true
+                        hint: "Repeat video continuously"
+                      
+                      - label: "Dark Overlay"
+                        name: "overlay"
+                        widget: "boolean"
+                        default: true
+                        hint: "Add dark overlay for better text readability"
+                      
+                      - label: "Overlay Opacity"
+                        name: "overlay_opacity"
+                        widget: "number"
+                        default: 0.6
+                        min: 0
+                        max: 1
+                        step: 0.1
+                        hint: "Strength of the dark overlay"
           
           # Features Section
           - label: "✨ Features Section"
